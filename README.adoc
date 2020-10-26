@@ -1,0 +1,99 @@
+ifndef::env-github[:icons: font]
+ifdef::env-github[]
+:status:
+:outfilesuffix: .adoc
+:caution-caption: :fire:
+:important-caption: :exclamation:
+:note-caption: :paperclip:
+:tip-caption: :bulb:
+:warning-caption: :warning:
+endif::[]
+= Intro to Formal Verification Methods: HW Base
+
+This project is the starting point the practical HW in https://www.cs.bgu.ac.il/~intvm191/[Introduction to Formal Verification Methods class]. This document explains how the homework system is built, how to submit your tasks and how they will be graded. Please read carefully.
+
+During the practical parts of the class, you will develop a library that works with transition systems, program graphs, and other creatures you'll meet in class. This repository contains initial implementations, and classes that have to be completed during the semester. We also include sanity unit tests, which test basic functionality. You are encouraged to add more tests as your code grows.
+
+[NOTE]
+This project uses Java 11 (a.k.a. JDK-11), and https://maven.apache.org[Apache Maven].
+Make sure you have both installed before starting to work.
+
+[TIP]
+====
+To check which Java version you have installed, type `java -version` at your terminal prompt. You should see something along the lines of:
+
+[source bash]
+----
+$ java -version
+openjdk version "11" 2018-09-25
+OpenJDK Runtime Environment 18.9 (build 11+28)
+OpenJDK 64-Bit Server VM 18.9 (build 11+28, mixed mode)
+----
+====
+
+== Project Setup
+
+* If you haven't already, install Java 11 JDK and https://maven.apache.org[Apache Maven]
+* `+git clone+` this repository.
+** If you're uncomfortable with Git, you can download this repository as a .zip file and use manual version control, just like we did back in the 80s. That's not recommended, and you won't get points back for having submitted the wrong version, while "the right version was on my partner's disk-on-key".
+* The code is arranged in a Maven project. You can use your favorite IDE for working with it - just import/open the project.
+** If you're favorite IDE has issues with Maven, you might be favoring the wrong IDE. #JustSaying
+* To validate that everything is set up correctly, navigate to the repository folder using a terminal application, type `mvn validate`, and see that there are no error messages. To run the unit tests, type `mvn test`.
+
+[WARNING]
+When running `mvn` for the first time for this project, make sure you are connected to the internet. Maven is likely to download some dependencies before it can run for the first time. These dependencies are cached locally, to rest of the runs won't take as long.
+
+== Working Guidelines
+
+Most of the work revolves around the class `il.ac.bgu.cs.formalmethodsintro.base.FvmFacade`. This class has many methods that operate on transition systems. Most of these methods, however, are only placeholders; you'll have to implement them yourself.
+
+You are allowed to add code anywhere in the `src` folder (and please put it in a package that's not the top-level, default one). 
+
+[.lead]
+You are *not* allowed to:
+
+* Use external libraries, or use code from someone else.
+* Change the interface of the provided Java classes and interfaces. That is, you cannot remove methods, or change method signatures. Such changes will prevent the project from compiling during automatic testing.
+
+[WARNING]
+Your code will be checked and graded using an automated system. Compile errors are heavily penalized. You are 3+ years into your software engineering degree, compilation should not be an issue at this point.
+
+== Submission Guidelines
+* Submit a zip file with your project through the https://subsys.ise.bgu.ac.il/submission/login.aspx[ISE Submission System].
+* Zip file should contain your HW-Base folder and everything inside it.
+* In your HW-Base folder, create a filed named "students.txt". Each line should contain student ID.
+* Work may be done in pairs.
+* Each submission will reduce the final grade of your next submission by 1 point.
+
+== FAQ
+
+=== Will you release a solution code?
+
+No. You will be able to use the test results to fix your code, if we find any bugs.
+
+=== Do I really have to use Git?
+
+No, you can download the zip files and do everything manually. But note that: 
+
+* Using Git will make it easier for you to update your copies if we make changes to the central code.
+* You’ll have to start using a versioning system at some point, and if you haven’t done so already, 4th year of software engineering degree is about time. Thank us later.
+
+=== How can I draw my transition systems like you show in the slides?
+
+The general process is to:
+
+1. Create a `+TransitionSystem+` instance, populate it as you like.
+2. Pass it to `+GraphvizPainter+` and call `+makeDotCode+`. There are multiple painters, and you can create your own (tell us if you do!). To get you started, the simplest invocation is to use `+toStringPainter+`, like so:
+`System.out.println( GraphvizPainter.toStringPainter().makeDotCode(ts) );`
+
+1. Now you have the graph description in the dot language. Use http://graphviz.org[Graphviz] to turn it into a drawing (we recommend PDF for any non-trivial system).
+
+=== If I lost points due to an error in my code in HW `+i+`, and I didn’t fix it, will I lose points again in HW `+i+1+`?
+
+Yes. We are using a "layered" approach for developing the system here, so if a lower layer does not work, the layers relying on it won’t work too. And anyway, you should fix your code so that you understand what you got wrong.
+
+=== Things don’t work
+Give it another go, ask other students, use the Moodle forum, or try to identify the problem and search for a solution on-line.
+
+=== Things Still Don’t Work
+Contact https://www.cs.bgu.ac.il/~barsinam/[Michael] or https://in.bgu.ac.il/en/natural_science/cs/Pages/People/CSStaffDBPhdMsc.aspx?active=eMdsj#Top[Tal], or come to their receptions hours.
